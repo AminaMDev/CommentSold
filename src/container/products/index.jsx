@@ -5,7 +5,7 @@ import { DeleteOutlineOutlined, EditOutlined } from '@mui/icons-material'
 import Card from '@mui/joy/Card'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { defaultPageCount } from 'utils/constants/common'
 import { fetchAllProducts, removeProducts } from 'api/products'
@@ -14,7 +14,7 @@ import { productColumnsKeys } from 'utils/constants/product'
 import {
   AppBar, DeleteModal, LoadingModal, Table,
 } from 'components'
-import { formatNumbers, getToken } from 'utils/helpers'
+import { formatNumbers, getToken, productRevenue } from 'utils/helpers'
 
 import './styles.scss'
 
@@ -78,7 +78,7 @@ const Products = () => {
   const productsColumns = [
     {
       name: 'Name',
-      selector: (row) => row.product_name,
+      selector: (row) => <Link to={`/inventory/${row.product_name}`}>{row.product_name}</Link>,
       sortable: true,
       wrap: true,
     },
@@ -92,6 +92,12 @@ const Products = () => {
       name: 'Brand',
       selector: (row) => row.brand,
       sortable: true,
+      wrap: true,
+    },
+    {
+      name: 'Revenue',
+      selector: (row) => productRevenue(row),
+      sortable: false,
       wrap: true,
     },
     {

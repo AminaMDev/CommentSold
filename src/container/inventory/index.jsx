@@ -2,7 +2,7 @@ import {
   Box, CardContent, Paper, Typography, TextField,
 } from '@mui/material'
 import Card from '@mui/joy/Card'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { AppBar, Table, SelectFilter } from 'components'
 import { formatNumbers, getToken } from 'utils/helpers'
@@ -14,11 +14,12 @@ import { useEffect, useState } from 'react'
 import './styles.scss'
 
 const Inventory = () => {
+  const params = useParams()
   const [inventories, setInventories] = useState({})
   const [inventoriesCount, setInventoriesCount] = useState(0)
   const [pageNumber, setPageNumber] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(defaultPageCount)
-  const [name, setName] = useState('')
+  const [name, setName] = useState(params?.product_name || '')
   const [price, setPrice] = useState(0)
   const [operator, setOperator] = useState('lt')
   const [loading, setLoading] = useState(false)
@@ -73,6 +74,7 @@ const Inventory = () => {
                 className='text-field'
                 size='small'
                 label='Search by name'
+                defaultValue={params?.product_name}
                 variant='outlined'
               />
               <Box className='select'>

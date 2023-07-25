@@ -8,6 +8,8 @@ export const removeToken = () => localStorage.removeItem(TOKEN)
 
 export const formatNumbers = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
+export const formatCurrency = (number) => `$ ${number.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`
+
 export const orderSearchUrl = ({
   rowsPerPage, pageNumber, search, status, shippName, tempSortBy,
 }) => {
@@ -35,3 +37,9 @@ export const inventorySearchUrl = ({
 
   return searchUrl
 }
+
+export const productRevenue = row => (
+  formatCurrency(
+    row.inventories.reduce((partialSum, a) => partialSum + (a.quantity * a.price_cents), 0) / 100,
+  )
+)

@@ -5,7 +5,7 @@ import Card from '@mui/joy/Card'
 import { useNavigate } from 'react-router-dom'
 
 import { defaultPageCount } from 'utils/constants/common'
-import { formatNumbers, getToken } from 'utils/helpers'
+import { formatCurrency, getToken } from 'utils/helpers'
 import fetchAllOrders from 'api/order'
 import {
   orderColumns, orderColumnsKeys, orderStatusOptions, shipperNameOptions,
@@ -76,10 +76,10 @@ const Orders = () => {
           <Card>
             <Box className='order-sale'>
               <Typography className='sale' variant='h5'>
-                Orders - Total Sale ({formatNumbers(parseInt(sales.totalSale, 10))} cents)
+                Orders - Total Sale ({formatCurrency(parseInt(sales.totalSale, 10))})
               </Typography>
               <Typography className='avg-sale sale' variant='h5'>
-                Average Sale ({formatNumbers(parseInt(sales.average, 10))} cents)
+                Average Sale ({formatCurrency(parseInt(sales.average, 10))})
               </Typography>
             </Box>
             <CardContent className='mat-card-header'>
